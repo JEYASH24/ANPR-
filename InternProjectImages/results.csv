@@ -1,0 +1,3 @@
+image_path,license_plate_bbox,license_plate_number,confidence_score
+"C:\Users\Keerthana\Downloads\carImages\car7.jpg",[986.7081298828125, 306.53399658203125, 1191.8524169921875, 386.6422119140625],"MH20DV2363",0.5847436980956093
+"C:\Users\Keerthana\Downloads\carImages\car8.jpg",[246.03402709960938, 391.21490478515625, 415.1094055175781, 454.4075622558594],"TN69AV7018",0.7378459406704715

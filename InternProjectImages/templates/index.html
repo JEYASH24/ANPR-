@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>License Plate Detector</title>
+</head>
+<body>
+
+<h2>License Plate Detector</h2>
+
+<input type="text" id="licensePlateInput" placeholder="Enter license plate number...">
+<button onclick="detectText()">Detect</button>
+<button onclick="removeText()">Remove</button>
+
+<!-- Add an img tag to display the image -->
+<!-- <img id="detectedImage" style="display: none; max-width: 100%; max-height: 100%;" /> -->
+
+<script>
+function detectText() {
+    var inputLicensePlate = document.getElementById("licensePlateInput").value;
+
+    // Create a data object with the inputLicensePlate value
+    const data = {
+        licensePlate: inputLicensePlate
+    };
+
+    // Send a POST request to the Flask backend
+    fetch('/process_license_plate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Check if image path is provided in the response
+        if (data && data.image_path) {
+            // Show the image
+            window.open('/get_image?image_path=' + encodeURIComponent(data.image_path), '_blank');
+        } else {
+            alert("Not Found")
+            console.error('Error: Image path not provided in the response');
+            // Handle error: Image path not provided
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle network errors or other exceptions
+    });
+}
+</script>
+
+</body>
+</html>
